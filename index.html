@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#050305">
-<title>Liliana × Prathamesh — A Little Movie</title>
+<title>Saniya × Prathamesh — A Little Movie</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -472,7 +472,7 @@ h1,h2,h3,p{
   margin:18px auto;
 }
 
-.liliana-reveal{
+.saniya-reveal{
   margin-top:28px;
   font-family:"Cormorant Garamond",serif;
   font-size:clamp(3rem,9vw,7rem);
@@ -1176,6 +1176,221 @@ body{
     display:none;
   }
 }
+
+
+/* --------------------------------------------------
+   QUIET VISUAL POLISH — layered on top of the original design
+   No scene structure, copy, or interaction logic is changed.
+-------------------------------------------------- */
+
+:root{
+  --mouse-x:50%;
+  --mouse-y:45%;
+  --soft-rose:rgba(199,124,143,.12);
+  --warm-glow:rgba(201,168,120,.10);
+}
+
+#app{
+  background:
+    radial-gradient(ellipse at var(--mouse-x) var(--mouse-y), rgba(125,42,65,.105), transparent 34%),
+    radial-gradient(circle at 50% 45%, rgba(91,23,40,.16), transparent 48%),
+    linear-gradient(145deg, rgba(255,255,255,.012), transparent 42%),
+    var(--black);
+  isolation:isolate;
+}
+
+/* A restrained, slow-moving halo gives the scenes a little depth. */
+#app::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:4;
+  pointer-events:none;
+  opacity:.55;
+  background:
+    radial-gradient(ellipse at 50% 52%, transparent 34%, rgba(0,0,0,.12) 100%),
+    linear-gradient(115deg, transparent 20%, rgba(201,168,120,.018) 48%, transparent 76%);
+  mix-blend-mode:screen;
+}
+
+.light{
+  filter:blur(105px);
+  opacity:.14;
+}
+
+.light.one{
+  animation:ambientDriftOne 22s ease-in-out infinite alternate;
+}
+
+.light.two{
+  animation:ambientDriftTwo 27s ease-in-out infinite alternate;
+}
+
+@keyframes ambientDriftOne{
+  from{transform:translate3d(0,0,0) scale(.96)}
+  to{transform:translate3d(5vw,4vh,0) scale(1.08)}
+}
+
+@keyframes ambientDriftTwo{
+  from{transform:translate3d(0,0,0) scale(1.02)}
+  to{transform:translate3d(-4vw,-3vh,0) scale(.94)}
+}
+
+/* Fine edge detail: still barely visible, but makes the frame feel intentional. */
+.frame{
+  border-color:rgba(243,234,223,.105);
+  box-shadow:inset 0 0 34px rgba(201,168,120,.018), 0 0 28px rgba(0,0,0,.12);
+}
+
+.frame::before,
+.frame::after{
+  background:linear-gradient(90deg, transparent, rgba(201,168,120,.22), transparent);
+}
+
+.scene-inner{
+  text-rendering:optimizeLegibility;
+  -webkit-font-smoothing:antialiased;
+}
+
+.opening-title,
+.trailer-text,
+.cast-name,
+.romantic-copy,
+.feature-title,
+.question-title,
+.yes-title,
+.ticket-title,
+.final-title{
+  text-shadow:0 2px 28px rgba(199,124,143,.075);
+}
+
+.opening-title em,
+.question-name,
+.cast-name.second{
+  text-shadow:0 0 32px rgba(199,124,143,.13);
+}
+
+.scene-label,
+.eyebrow,
+.opening-kicker,
+.cast-label{
+  color:rgba(201,168,120,.72);
+}
+
+.fade-line{
+  width:68px;
+  opacity:.68;
+  box-shadow:0 0 16px rgba(201,168,120,.12);
+}
+
+/* Buttons gain a soft inner highlight and a more considered hover response. */
+.btn{
+  overflow:hidden;
+  isolation:isolate;
+  border-color:rgba(243,234,223,.19);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.025);
+  -webkit-tap-highlight-color:transparent;
+}
+
+.btn::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  opacity:0;
+  background:linear-gradient(110deg, transparent 18%, rgba(255,255,255,.075) 48%, transparent 78%);
+  transform:translateX(-45%);
+  transition:transform .7s ease, opacity .35s ease;
+}
+
+.btn:hover::after,
+.btn:focus-visible::after{
+  opacity:1;
+  transform:translateX(45%);
+}
+
+.btn.primary{
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.07), 0 8px 28px rgba(50,8,22,.14);
+}
+
+.btn.primary:hover{
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.09), 0 10px 34px rgba(91,23,40,.28), 0 0 28px rgba(201,168,120,.07);
+  transform:translateY(-2px);
+}
+
+.btn:focus-visible,
+.music-control:focus-visible,
+.begin:focus-visible{
+  outline:1px solid rgba(201,168,120,.8);
+  outline-offset:4px;
+}
+
+.music-control{
+  color:rgba(243,234,223,.66);
+  transition:color .3s ease, text-shadow .3s ease;
+}
+
+.music-control:hover{
+  color:var(--cream);
+  text-shadow:0 0 18px rgba(199,124,143,.28);
+}
+
+.music-control.playing .music-dot{
+  box-shadow:0 0 0 4px rgba(199,124,143,.08), 0 0 15px rgba(199,124,143,.72);
+}
+
+.dust span{
+  box-shadow:0 0 7px rgba(243,234,223,.2);
+}
+
+/* The ticket keeps its existing shape and layout; only its paper finish is refined. */
+.ticket{
+  background:
+    radial-gradient(ellipse at 16% 8%, rgba(255,255,255,.48), transparent 42%),
+    repeating-linear-gradient(0deg, rgba(75,48,34,.018) 0 1px, transparent 1px 4px),
+    linear-gradient(115deg, #eee1cf, #f7ecdf 48%, #dfccb5);
+  box-shadow:
+    0 38px 100px rgba(0,0,0,.64),
+    0 0 58px rgba(201,168,120,.105),
+    inset 0 1px 0 rgba(255,255,255,.62);
+}
+
+.ticket::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:linear-gradient(112deg, transparent 25%, rgba(255,255,255,.17) 49%, transparent 68%);
+  opacity:.55;
+}
+
+.ticket::before{
+  border-color:rgba(32,25,26,.19);
+}
+
+.ticket-title{
+  text-shadow:0 1px 0 rgba(255,255,255,.24);
+}
+
+.barcode{
+  filter:contrast(1.08);
+}
+
+/* Mobile: keep the enhancements light and prevent decorative layers affecting scroll. */
+@media(max-width:700px){
+  #app::before{opacity:.34}
+  .light{filter:blur(82px);opacity:.11}
+  .frame{box-shadow:none}
+  .ticket{box-shadow:0 24px 65px rgba(0,0,0,.58), 0 0 34px rgba(201,168,120,.08), inset 0 1px 0 rgba(255,255,255,.55)}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .light.one,
+  .light.two{animation:none}
+  .btn::after{display:none}
+}
+
 </style>
 </head>
 
@@ -1273,7 +1488,7 @@ body{
       </div>
 
       <div class="cast-name first">
-        LILIANA
+        SANIYA
       </div>
 
       <div class="cast-x">
@@ -1319,8 +1534,8 @@ body{
 
       </div>
 
-      <div class="liliana-reveal">
-        LILIANA
+      <div class="saniya-reveal">
+        SANIYA
       </div>
 
       <div class="fade-line"></div>
@@ -1412,7 +1627,7 @@ body{
         </span>
 
         <span class="question-name">
-          Liliana...
+          Saniya...
         </span>
 
         <span style="display:block;margin-top:20px;">
@@ -1527,7 +1742,7 @@ body{
         <span class="highlight">I'll ask properly.</span>
 
         <span class="small-copy">
-          Liliana, would you do me the honour of spending an evening
+          Saniya, would you do me the honour of spending an evening
           with me, watching a movie and letting me annoy you for several hours?
         </span>
 
@@ -1726,7 +1941,7 @@ body{
       </div>
 
       <div class="branch-copy">
-        Liliana is thinking...
+        Saniya is thinking...
       </div>
 
       <div class="thinking-progress">
@@ -1887,7 +2102,7 @@ body{
       </div>
 
       <div class="yes-names">
-        LILIANA × PRATHAMESH
+        SANIYA × PRATHAMESH
       </div>
 
     </div>
@@ -1927,7 +2142,7 @@ body{
 
             <div class="ticket-detail">
               <span>Guests</span>
-              <strong>LILIANA × PRATHAMESH</strong>
+              <strong>SANIYA × PRATHAMESH</strong>
             </div>
 
             <div class="ticket-detail">
@@ -1998,7 +2213,7 @@ body{
 
 <script>
 /* ==================================================
-   LILIANA × PRATHAMESH
+   SANIYA × PRATHAMESH
    V4.3 — FIXED NAVIGATION
 ================================================== */
 
@@ -2391,7 +2606,7 @@ function playYesEmail(){
 
     Example:
 
-    Liliana just said YES to the movie date.
+    Saniya just said YES to the movie date.
     It's officially a date.
   */
 }
@@ -2471,11 +2686,5 @@ if(
 currentScene = "opening";
 </script>
 
-
-
-
-/* --------------------------------------------------
-   INITIAL STATE
--------------------------------------------------- */
-
-currentScene = "opening";
+</body>
+</html>
